@@ -9,5 +9,6 @@ def parse(filepath):
             settings[name] = value
     return settings
 
+
 group = parse(".settings/group")
 print(group)
