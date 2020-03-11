@@ -1,3 +1,6 @@
+import vk
+
+
 def parse(filepath):
     settings = {}
     with open(filepath, 'r') as file:
@@ -11,4 +14,4 @@ def parse(filepath):
 
 
 group = parse(".settings/group")
-print(group)
+api = vk.API(vk.Session(group["MSG_PHOTOS_TOKEN"]), v=5.103)
