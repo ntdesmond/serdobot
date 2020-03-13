@@ -70,3 +70,13 @@ class Command:
             return "pm: wrong peer id!"
         except Exception as e:
             return str(e)
+
+    def exec(self):
+        """
+            Usage: /exec <code>
+            Execute given code and return the result
+        """
+        try:
+            return str(eval(self.__paramstr))
+        except Exception as e:
+            return str(e)
