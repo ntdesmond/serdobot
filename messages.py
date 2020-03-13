@@ -17,10 +17,13 @@ class MessageParser:
     def __parse(self):
         cmd_args = re.fullmatch(r"\/(?P<command>[\w\.]+)(?: (?P<args>.+))?", self.__message.get("text", ""), re.S | re.I)
         if cmd_args:
-            cmd_args = cmd_args.groupdict()
-            from commands import Command
-            cmd = Command(cmd_args, self.__message)
-            return cmd.result
+            if self.__message["from_id"] == group.get("ADMIN_ID"):
+                cmd_args = cmd_args.groupdict()
+                from commands import Command
+                cmd = Command(cmd_args, self.__message)
+                return cmd.result
+            else:
+                return {"message": "No way you do this!"}
         else:
             return {"message": "serdobot v0.0"}
 
