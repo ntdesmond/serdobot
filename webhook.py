@@ -28,7 +28,5 @@ class RequestHandler(BaseHTTPRequestHandler):
 server = HTTPServer(('', 1337), RequestHandler)
 
 # SSL certificate
-context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-context.load_cert_chain('/path/to/certchain.pem', '/path/to/private.key')
 server.socket = ssl.wrap_socket(server.socket, keyfile=".settings/privkey.pem", certfile=".settings/cert.pem", server_side=True, ssl_version=ssl.PROTOCOL_SSLv23)
 server.serve_forever()
