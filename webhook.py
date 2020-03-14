@@ -25,8 +25,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     MessageParser(data.get("object"))
 
 
-# VK forces to use default port, meh
-server = HTTPServer(('', 443), RequestHandler)
+server = HTTPServer(('', 1337), RequestHandler)
 
 # SSL certificate
 server.socket = ssl.wrap_socket(server.socket, keyfile=".settings/privkey.pem", certfile=".settings/cert.pem", server_side=True, ssl_version=ssl.PROTOCOL_SSLv23)
