@@ -5,7 +5,8 @@ import re
 
 class MessageParser:
     def __init__(self, msg):
-        self.__message = msg
+        self.__message = msg.get("message")
+        self.__client = msg.get("client_info")
         try:
             self.__response(self.__parse())
         except Exception as e:
@@ -17,7 +18,7 @@ class MessageParser:
     def __parse(self):
         cmd_args = re.fullmatch(r"\/(?P<command>[\w\.]+)(?: (?P<args>.+))?", self.__message.get("text", ""), re.S | re.I)
         if cmd_args:
-            if self.__message["from_id"] == group.get("ADMIN_ID"):
+            if self.__message.get("from_id") == group.get("ADMIN_ID"):
                 cmd_args = cmd_args.groupdict()
                 from commands import Command
                 cmd = Command(cmd_args, self.__message)
@@ -28,5 +29,5 @@ class MessageParser:
             return {"message": "serdobot v0.0"}
 
     def __response(self, message):
-        message.update({"peer_id": self.__message["peer_id"], "random_id": randint(0, 2 ** 64)})
+        message.update({"peer_id": self.__message.get("peer_id"), "random_id": randint(0, 2 ** 64)})
         api.messages.send(**message)
